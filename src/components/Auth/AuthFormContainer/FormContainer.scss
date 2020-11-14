@@ -1,0 +1,98 @@
+.Form-container {
+  max-width: 800px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    font-size: 48px;
+    font-family: "Lato", sans-serif;
+    margin: 0 0 10px 0;
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 84px 0;
+    color: gray;
+    padding: 10px;
+  }
+
+  .google-oauth-btn {
+    width: 90%;
+    max-width: 90%;
+    background-color: #fff;
+    border: 2px solid #4285f4;
+    display: flex;
+    padding: 0;
+    font-size: 18px;
+    font-weight: 900;
+    height: 44px;
+    min-width: 96px;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    color: #4285f4;
+    transition: all 80ms linear;
+    transition-property: all;
+    transition-duration: 80ms;
+    transition-timing-function: linear;
+    transition-delay: 0s;
+
+    &:hover {
+      box-shadow: 0 1px 4px #0000004d;
+    }
+
+    img {
+      width: 18px;
+      height: 18px;
+      margin-right: 12px;
+    }
+
+    span {
+      font-weight: 700;
+    }
+  }
+
+  .or-divider {
+    margin: 20px 0 20px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    .divider-text {
+      margin: 0 20px 0 20px;
+      color: gray;
+      font-weight: 600;
+    }
+  }
+
+  .error {
+    color: red;
+    margin-bottom: 1rem;
+  }
+
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .signup-link,
+  .signin-link {
+    color: rgb(19, 19, 144);
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// F/R :: in real production, if we need more Oauth button, it is better to create reusable btn.

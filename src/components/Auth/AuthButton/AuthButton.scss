@@ -1,0 +1,26 @@
+@import "../../../design-tokens/_scss_variables";
+
+button {
+  background-color: $slack-color;
+  color: white;
+  border: none;
+  margin-bottom: 20px;
+  width: 90%;
+  font-size: 18px;
+  font-weight: 700;
+  height: 44px;
+  min-width: 96px;
+  padding: 0 16px 3px;
+  outline: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 80ms linear;
+  transition-property: all;
+  transition-duration: 80ms;
+  transition-timing-function: linear;
+  transition-delay: 0s;
+
+  &:hover {
+    background-color: rgba(74, 21, 75, 0.9);
+  }
+}
