@@ -1,5 +1,7 @@
 @import "../../../design-tokens/_scss_variables.scss";
 
 .Mainheader {
-  background-color: $slack-color;
+  background-color: $slack-header-color;
+  height: 43px;
+  color: white;
 }

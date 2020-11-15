@@ -13,10 +13,10 @@ function App() {
       <AuthProvider>
         <div className="App">
           <Switch>
-            <Route exact path="/login">
+            <Route exact path="/register">
               <Register />
             </Route>
-            <Route exact path="/register">
+            <Route exact path="/login">
               <Login />
             </Route>
             <Route exact path="/">

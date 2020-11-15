@@ -25,7 +25,14 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const signOut = () => {
+    auth.signOut();
+  };
+
   const googleSignIn = () => {
+    // we can always declare the provider in firebase ('../firebase/firebase.js)
+    // however, I added in Auth Context,
+    // if we add other auth provider like facebook, github, twitter etc
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase
       .auth()
@@ -49,7 +56,14 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  const value = { signUp, errorFromAuth, login, googleSignIn, currentUser };
+  const value = {
+    signUp,
+    errorFromAuth,
+    login,
+    googleSignIn,
+    currentUser,
+    signOut,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -1,0 +1,50 @@
+.LeftPanelCategory {
+  .LeftPanelCategory__title {
+    padding: 0.3rem 0 0.3rem 1rem;
+    display: flex;
+    font-size: 1.2rem;
+    font-weight: 700;
+    flex-direction: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+      background-color: rgb(54, 18, 61);
+      .LeftPanelCategory__title-plus {
+        display: block;
+      }
+    }
+
+    svg {
+      display: inline-block;
+      color: rgb(131, 131, 131);
+    }
+
+    .LeftPanelCategory__title-text {
+      margin-left: 0.5rem;
+    }
+
+    .LeftPanelCategory__title-plus {
+      font-size: 1.4rem;
+      position: absolute;
+      right: 1rem;
+      top: 5px;
+      display: none;
+    }
+  }
+
+  .LeftPanelCategory__list {
+    li {
+      padding-left: 2.5rem;
+      padding: 0.1rem 0 0.1rem 2.5rem;
+      list-style: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(54, 18, 61);
+      }
+    }
+  }
+}

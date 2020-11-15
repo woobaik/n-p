@@ -25,7 +25,8 @@ const FormContainer = ({ title, description, type }) => {
     }
   }, [errorFromAuth]);
 
-  // when user switch login to singup after failing, clean up the error message
+  // when user switch login to singup after failing, clean up the error message.
+  //because login, register share the error message
   useEffect(() => {
     setErrors("");
   }, [type]);
@@ -40,10 +41,12 @@ const FormContainer = ({ title, description, type }) => {
   const googleBtnClick = () => {
     googleSignIn();
   };
+
   // BAD CODE, I think I should just seperate login and register page.
   // Kinda hard to read the code.
   const handleSubmit = (e) => {
     setLoading(true);
+    setErrors("");
     e.preventDefault();
     if (errorFromAuth) {
       setErrors(errorFromAuth);
@@ -126,14 +129,14 @@ const FormContainer = ({ title, description, type }) => {
         {type === "login" ? (
           <>
             <AuthButton title="Sign In with Email" loading={loading} />
-            <Link to="/login">
+            <Link to="/register">
               <div className="signup-link">Don't have account yet?</div>
             </Link>
           </>
         ) : (
           <>
             <AuthButton title="Sign up with Email" loading={loading} />
-            <Link to="/register" className="signin-link">
+            <Link to="/login" className="signin-link">
               Already have account? Login
             </Link>
           </>

@@ -4,7 +4,9 @@ import "./AuthButton.scss";
 const AuthButton = ({ title, loading }) => {
   return (
     <>
-      <button disabled={loading}>{title}</button>
+      <button className="AuthButton" disabled={loading}>
+        {title}
+      </button>
     </>
   );
 };

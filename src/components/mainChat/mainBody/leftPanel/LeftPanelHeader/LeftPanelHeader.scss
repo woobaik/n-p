@@ -1,0 +1,27 @@
+@import "../../../../../design-tokens/scss_variables";
+.LeftPanelHeader {
+  height: 68px;
+  border-bottom: 1px solid rgb(87, 51, 98);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .LeftPanelHeader__title {
+    margin-left: 1rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .LeftPanelHeader__plus_icon {
+    background-color: white;
+    color: $slack-color;
+    margin-right: 20px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+}

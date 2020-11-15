@@ -27,6 +27,7 @@
     - in order to change main theme, this can be found under /src/design-tokens/_scss_variables.scss
 
     1. $slack-color: #4d194e;
+    2. $slack-header-color: #241524;
 
 ### Daily Work
 
@@ -69,17 +70,23 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
 ### 3rd party libraries
 
 1. create-react-app (MIT)
-2. node-sass
-   - the major version was just bumped, and CRA does not match sass-loader ^4.0.0. so, Installed prev version of node-sass. (4.14.1) (MIT)
+2. node-sass (4.14.1) (MIT)
+   - the major version was just bumped, and CRA does not match sass-loader ^4.0.0. so, Installed prev version of node-sass.
 3. react-icons
+
    - Each Icons Library has different license.
-   * check [React Icons](https://github.com/react-icons/react-icons)
+
+   BsPencilSquare (MIT) -LeftPanelHeader-
+
+   - check [React Icons](https://github.com/react-icons/react-icons)
+
+4. ## react-router-dom (MIT)
 
 ### Reusable component
 
 1. Auth
    1. AuthHeader
-   2. FormContainer - see Things to improve below
+   2. FormContainer - see  
       1.AuthInput
       2.AuthButton
 
@@ -95,9 +102,18 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
   (1hr of work)
 
 - 11/12 - Auth Part
+
   1. Create register, login page, focused on making reusable component. for scalable page.
   2. firebase setup
   3. learn useContext, since it is a small project. <= never been used it for strong user. I've used redux most of my project
+
+- 11/13 Auth Part
+
+  1. finish Auth (LOGIN, REGISTER, Oauth)
+
+- 11/14 Chat Part
+
+  1. Implement layouts of chat app
 
 ### Things to improve
 
@@ -113,3 +129,17 @@ src\context\AuthContext.js
 Line 10:10: 'currentUser' is assigned a value but never used no-unused-vars
 Line 14:9: 'login' is assigned a value but never used no-unused-vars
 Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
+
+### bug fix issue
+
+1. A data breach on a site or app exposed your password. Chrome recommends changing your password
+   When user login with email and password
+
+   dang... just do not test password with 123123 or abcabc..
+
+=> https://www.consumeraffairs.com/news/new-version-of-chrome-warns-users-if-their-password-was-exposed-in-a-data-breach-121119.html
+
+"Chrome will now warn you if your username and password have been compromised in a data breach on some site or app,” the tech giant wrote in a blog post. “It will suggest that you change them everywhere they were used."
+
+2. After hitting submit button on login, register, <the email address is badly formatted>
+   => reset error on hitting.
