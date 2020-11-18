@@ -8,21 +8,22 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-  // eslint-disable-next-line
   const [currentUser, setCurrentUser] = useState();
   const [errorFromAuth, setErrorFromAuth] = useState("");
 
-  // eslint-disable-next-line
   const login = (email, password) => {
     auth.signInWithEmailAndPassword(email, password).catch((error) => {
       setErrorFromAuth(error.message);
     });
   };
-  // eslint-disable-next-line
+
   const signUp = (email, password) => {
-    auth.createUserWithEmailAndPassword(email, password).catch((error) => {
-      setErrorFromAuth(error.message);
-    });
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then()
+      .catch((error) => {
+        setErrorFromAuth(error.message);
+      });
   };
 
   const signOut = () => {
@@ -39,8 +40,10 @@ export const AuthProvider = ({ children }) => {
       .signInWithPopup(provider)
       .then(function (result) {
         // This gives you a Google Access Token. You can use it to access the Google API.
+        // eslint-disable-next-line
         var token = result.credential.accessToken;
         // The signed-in user info.
+        // eslint-disable-next-line
         var user = result.user;
       })
       .catch(function (error) {

@@ -16,6 +16,7 @@ const AuthInput = ({
         placeholder={placeholder}
         className="AuthInput"
         onChange={changeHandler}
+        autoComplete="off"
       />
     </>
   );

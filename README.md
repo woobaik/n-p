@@ -8,8 +8,14 @@
 2. node-sass
    - the major version was just bumped, and CRA does not match sass-loader ^4.0.0. so, Installed prev version of node-sass. (4.14.1) (MIT)
 3. react-icons
+
    - Each Icons Library has different license.
+
    * check [React Icons](https://github.com/react-icons/react-icons)
+
+4. react-responsive-modal (MIT)
+   https://www.npmjs.com/package/react-responsive-modal
+   -this package is not very popular but, looks much better and smaller than popular react-modal package.
 
 ### Reusable component
 
@@ -20,7 +26,7 @@
     3.  FormContainer
         > > > > > > > 44063dd109f980ad40d8289571dc203072c5d227
               1.AuthInput
-              2.AuthButton
+              2.AuthButton <- used in Modal form as well.> need to change naming
 
 ### Global Sass Variables
 
@@ -71,7 +77,9 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
 
 1. create-react-app (MIT)
 2. node-sass (4.14.1) (MIT)
+
    - the major version was just bumped, and CRA does not match sass-loader ^4.0.0. so, Installed prev version of node-sass.
+
 3. react-icons
 
    - Each Icons Library has different license.
@@ -81,6 +89,11 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
    - check [React Icons](https://github.com/react-icons/react-icons)
 
 4. ## react-router-dom (MIT)
+
+   https://reactrouter.com/web/guides/quick-start
+
+5. ### react-modal (MIT)
+   https://reactcommunity.org/react-modal/
 
 ### Reusable component
 
@@ -115,6 +128,14 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
 
   1. Implement layouts of chat app
 
+  11/15
+
+  1. Worked on LEFT channel context and UI,
+     learn firebase
+
+  2. implement firebase firestore.
+     refactored left panel category => left panel body
+
 ### Things to improve
 
 - Made a single form, it will render correspond input component, by its prop "TYPE"
@@ -123,12 +144,12 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
 ### mokey patching warning
 
 - // eslint-disable-next-line
-  AuthContext (no-unused-vars) => this is a wrapper function for context, so variables is not used inside of return.
+  AuthContext (no-unused-vars) => google token and user is not used, but left it for future references
 
 src\context\AuthContext.js
-Line 10:10: 'currentUser' is assigned a value but never used no-unused-vars
-Line 14:9: 'login' is assigned a value but never used no-unused-vars
-Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
+Line 42:13: 'token' is assigned a value but never used no-unused-vars
+Line 44:13: 'user' is assigned a value but never used no-unused-vars
+Compiled with warnings.
 
 ### bug fix issue
 

@@ -1,4 +1,5 @@
 .LeftPanelCategory {
+  margin-top: 1rem;
   .LeftPanelCategory__title {
     padding: 0.3rem 0 0.3rem 1rem;
     display: flex;
@@ -31,19 +32,37 @@
       right: 1rem;
       top: 5px;
       display: none;
+
+      svg {
+        color: white;
+      }
     }
   }
 
   .LeftPanelCategory__list {
-    li {
-      padding-left: 2.5rem;
-      padding: 0.1rem 0 0.1rem 2.5rem;
+    ul {
       list-style: none;
-      font-size: 1.1rem;
-      cursor: pointer;
+      padding-left: 0;
+      margin: 0;
+      li {
+        padding: 4px 0 4px 27px;
+        list-style: none;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        &:hover {
+          background-color: rgb(54, 18, 61);
+        }
 
-      &:hover {
-        background-color: rgb(54, 18, 61);
+        &.active {
+          background-color: rgb(3, 107, 177);
+        }
+
+        svg {
+          display: inline-block;
+          margin-right: 10px;
+        }
       }
     }
   }

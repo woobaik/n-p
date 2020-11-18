@@ -11,3 +11,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.react-responsive-modal-container {
+  .customModal {
+    max-width: 500px;
+    width: 100%;
+    border-radius: 10px;
+
+    h4 {
+      font-weight: 400;
+      color: rgb(66, 66, 66);
+    }
+
+    .submitBtn-container {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 3rem;
+      .submitBtn {
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: rgb(77, 76, 76);
+        background-color: lightgray;
+        &.active {
+          background-color: rgb(2, 124, 97);
+          color: white;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
