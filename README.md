@@ -28,6 +28,9 @@
 6. firebase (MIT)
    https://yarnpkg.com/package/firebase
 
+7. "moment": "^2.29.1",
+   https://momentjs.com/
+
 ### Reusable component
 
 1. Auth
@@ -77,10 +80,22 @@
   11/17
 
   1.  Finish mid part of the main app page.
+      Decided to implement thread, and it seems really expensive to have counter :(
 
-  11/18 Decided to implement thread, and it seems really expensive to have counter :(
+  11/18
 
-  2.  Fount that there were so many bugs in this app, spend most of the time fixing issues.
+  1. Implementing moment.js
+  2. Fount that there were so many bugs in this app, spend most of the time fixing issues.
+
+  11/19
+
+  1. Implemented Responsive design
+  2. OH MY GOD!
+
+  MY APP ONLY WORKS IN LOCAL BROWSWER, It does not update live chat or channel add.
+  L figured there is a realtime function on firebase, Its 7:09 AM.
+  AND I NEED TO GET IT DONE.
+  and Done. onSnapshot
 
 ### Things to improve
 
@@ -98,6 +113,8 @@ src\context\AuthContext.js
 Line 42:13: 'token' is assigned a value but never used no-unused-vars
 Line 44:13: 'user' is assigned a value but never used no-unused-vars
 Compiled with warnings.
+
+some other useEffect does that too, because I used Context API
 
 ### bug fix issue
 
@@ -122,6 +139,9 @@ Compiled with warnings.
 
 5. After submitting a chat message, the message shows twice on the main page
    => changed fetching function.
+
+   6. IT's NOT LIVE.
+      => changed whole chat Context code. WOW....
 
 ### things to refactor
 

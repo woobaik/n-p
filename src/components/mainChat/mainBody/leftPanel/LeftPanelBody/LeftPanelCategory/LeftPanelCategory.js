@@ -121,19 +121,17 @@ const LeftPanelCategory = ({ title }) => {
           {expand
             ? channelList.map((channel) => {
                 return (
-                  <>
-                    <li
-                      className={
-                        selectedChatRoom.id === channel.id ? "active" : ""
-                      }
-                      onClick={() => selectChatRoom(channel)}
-                      key={channel.id}
-                    >
-                      <HiOutlineHashtag />
-                      {"   "}
-                      {channel.name}
-                    </li>
-                  </>
+                  <li
+                    className={
+                      selectedChatRoom.id === channel.id ? "active" : ""
+                    }
+                    onClick={() => selectChatRoom(channel)}
+                    key={channel.id}
+                  >
+                    <HiOutlineHashtag />
+                    {"   "}
+                    {channel.name}
+                  </li>
                 );
               })
             : ""}

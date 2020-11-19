@@ -23,7 +23,13 @@ const RightPanelThreads = () => {
     <div className="RightPanelThreads">
       <div className="RightPanelThreads__threads">
         {threadList.map((thread) => {
-          return <MidPanelMessage messageData={thread} type="right" />;
+          return (
+            <MidPanelMessage
+              messageData={thread}
+              type="right"
+              key={thread.id}
+            />
+          );
         })}
       </div>
       <div ref={ThreadEndRef} />

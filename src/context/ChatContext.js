@@ -18,8 +18,7 @@ export const ChatProvider = ({ children }) => {
   const [threadList, setThreadList] = useState([]);
 
   useEffect(() => {
-    const data = getChatChannels();
-    setChannelList(data);
+    getChatChannels();
   }, []);
   useEffect(() => {
     if (selectedChatRoom.id) {
@@ -30,6 +29,7 @@ export const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     getReplies();
+    // eslint-disable-next-line
   }, [selectedMessage]);
 
   const selectChatRoom = (doc) => {
@@ -70,12 +70,11 @@ export const ChatProvider = ({ children }) => {
   };
 
   const getChatChannels = () => {
-    const tempChannelList = [];
     db.collection("rooms")
-      .get()
-      .then((querySnapShot) => {
-        querySnapShot.forEach((doc) => {
-          const newChannel = {
+      .orderBy("createdAt", "asc")
+      .onSnapshot((snapshot) => {
+        setChannelList(
+          snapshot.docs.map((doc) => ({
             id: doc.id,
             name: doc.data().name,
             description: doc.data().description,
@@ -83,13 +82,33 @@ export const ChatProvider = ({ children }) => {
             userEmail: doc.data().userEmail,
             userUid: doc.data().userUid,
             createdAt: doc.data().createdAt,
-          };
-          tempChannelList.push(newChannel);
-        });
+          }))
+        );
       });
-
-    return tempChannelList;
   };
+
+  // BAD CODE
+  // const getChatChannels = () => {
+  //   const tempChannelList = [];
+  //   db.collection("rooms")
+  //     .get()
+  //     .then((querySnapShot) => {
+  //       querySnapShot.forEach((doc) => {
+  //         const newChannel = {
+  //           id: doc.id,
+  // name: doc.data().name,
+  // description: doc.data().description,
+  // userAvatar: doc.data().userAvatar,
+  // userEmail: doc.data().userEmail,
+  // userUid: doc.data().userUid,
+  // createdAt: doc.data().createdAt,
+  //         };
+  //         tempChannelList.push(newChannel);
+  //       });
+  //     });
+
+  //   return tempChannelList;
+  // };
 
   const sendMessage = (message) => {
     const userAvatar = createOrFetchUserAvatar();
@@ -123,20 +142,48 @@ export const ChatProvider = ({ children }) => {
       return;
     }
 
-    const messagesArray = [];
     db.collection("rooms")
       .doc(selectedChatRoom.id)
       .collection("messages")
       .orderBy("createdAt", "asc")
-      .get()
-      .then((querySnapShot) => {
-        querySnapShot.docs.forEach((doc) => {
-          const id = doc.id;
-          messagesArray.push({ ...doc.data(), id });
-        });
-      })
-      .then((res) => setChannelMessages(messagesArray));
+      .onSnapshot((snapshot) => {
+        setChannelMessages(
+          snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              createdAt: doc.data().createdAt,
+              message: doc.data().message,
+              sendUser: {
+                userAvatar: doc.data().sendUser.userAvatar,
+                userEmail: doc.data().sendUser.userEmail,
+                userUid: doc.data().sendUser.userUid,
+              },
+            };
+          })
+        );
+      });
   };
+
+  // BAD CODE
+  // const getMessages = () => {
+  //   if (Object.keys(selectedChatRoom).length === 0) {
+  //     return;
+  //   }
+
+  //   const messagesArray = [];
+  //   db.collection("rooms")
+  //     .doc(selectedChatRoom.id)
+  //     .collection("messages")
+  //     .orderBy("createdAt", "asc")
+  //     .get()
+  //     .then((querySnapShot) => {
+  //       querySnapShot.docs.forEach((doc) => {
+  //         const id = doc.id;
+  //         messagesArray.push({ ...doc.data(), id });
+  //       });
+  //     })
+  //     .then((res) => setChannelMessages(messagesArray));
+  // };
 
   const createOrFetchUserAvatar = () => {
     const userAvatar =
@@ -166,7 +213,6 @@ export const ChatProvider = ({ children }) => {
       .add(tempMessageInfo)
       .then(() => {
         console.log("Message has been successfully added");
-        getReplies();
       })
       .catch((err) => console.log("===ERROR===", err));
   };
@@ -175,7 +221,6 @@ export const ChatProvider = ({ children }) => {
     if (Object.keys(selectedChatRoom).length === 0) {
       return;
     }
-    const threadsArray = [];
 
     db.collection("rooms")
       .doc(selectedChatRoom.id)
@@ -183,17 +228,48 @@ export const ChatProvider = ({ children }) => {
       .doc(selectedMessage.id)
       .collection("thread")
       .orderBy("createdAt", "asc")
-      .get()
-      .then((querySnapShot) => {
-        querySnapShot.forEach((doc) => {
-          const id = doc.id;
-          threadsArray.push({ ...doc.data(), id });
-        });
-      })
-      .then((promise) => {
-        setThreadList(threadsArray);
+      .onSnapshot((snapshot) => {
+        setThreadList(
+          snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              createdAt: doc.data().createdAt,
+              message: doc.data().message,
+              sendUser: {
+                userEmail: doc.data().sendUser.email,
+                userUid: doc.data().sendUser.uid,
+                userAvatar: doc.data().sendUser.userAvatar,
+              },
+            };
+          })
+        );
       });
   };
+
+  //BAD CODE
+  // const getReplies = () => {
+  //   if (Object.keys(selectedChatRoom).length === 0) {
+  //     return;
+  //   }
+  //   const threadsArray = [];
+
+  //   db.collection("rooms")
+  //     .doc(selectedChatRoom.id)
+  //     .collection("messages")
+  //     .doc(selectedMessage.id)
+  //     .collection("thread")
+  //     .orderBy("createdAt", "asc")
+  //     .get()
+  //     .then((querySnapShot) => {
+  //       querySnapShot.forEach((doc) => {
+  //         const id = doc.id;
+  //         threadsArray.push({ ...doc.data(), id });
+  //       });
+  //     })
+  //     .then((promise) => {
+  //       setThreadList(threadsArray);
+  //     });
+  // };
 
   const value = {
     addChannel,

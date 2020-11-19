@@ -10,7 +10,7 @@ const MidPanelMessage = ({ messageData, type }) => {
     return <div></div>;
   }
   const { userEmail, userAvatar } = messageData.sendUser;
-  const { seconds, nanoseconds } = messageData.createdAt;
+  const { seconds } = messageData.createdAt;
 
   const handleMsgClick = () => {
     if (type === "right") {
@@ -19,7 +19,7 @@ const MidPanelMessage = ({ messageData, type }) => {
     selectMessage(messageData);
   };
 
-  const serverTime = new Date(seconds * 1000 + nanoseconds / 1000);
+  const serverTime = new Date(seconds * 1000);
   const time = moment(serverTime).fromNow();
   return (
     <div className="MidPanelMessage" onClick={handleMsgClick}>

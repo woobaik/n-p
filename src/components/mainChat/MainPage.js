@@ -7,7 +7,7 @@ import "./MainPage.scss";
 
 const MainPage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  console.log(isSidebarOpen);
+
   return (
     <div className="MainPage">
       <Mainheader clickMenu={setIsSidebarOpen} isOpen={isSidebarOpen} />

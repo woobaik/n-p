@@ -16,8 +16,10 @@ const RightPanel = () => {
 
   const replySubmitHandler = (e) => {
     e.preventDefault();
-    addReplyToChat(replyMessage);
-    setReplyMessage("");
+    if (replyMessage !== "") {
+      addReplyToChat(replyMessage);
+      setReplyMessage("");
+    }
   };
 
   const changeHandler = (e) => {
