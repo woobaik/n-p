@@ -47,7 +47,6 @@ export const AuthProvider = ({ children }) => {
         var user = result.user;
       })
       .catch(function (error) {
-        console.log(error);
         setErrorFromAuth(error.message);
       });
   };

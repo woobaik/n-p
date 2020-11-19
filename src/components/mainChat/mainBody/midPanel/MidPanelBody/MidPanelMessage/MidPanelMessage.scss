@@ -1,0 +1,56 @@
+.MidPanelMessage {
+  display: flex;
+  padding: 1rem 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(241, 241, 241);
+  }
+  .MidPanelMessage_picture {
+    padding-left: 1.5rem;
+    img {
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      border: white;
+      border-radius: 10%;
+    }
+  }
+
+  .MidPanelMessage_body {
+    padding-left: 1rem;
+    .MidPanelMessage_body_title {
+      font-weight: bolder;
+      font-size: 1rem;
+      .MidPanelMessage_body_time {
+        font-weight: lighter;
+        font-size: 0.8rem;
+      }
+    }
+
+    .MidPanelMessage_body_text {
+    }
+
+    .MidPanelMessage_body__thread {
+      margin: 0.2rem 0;
+      display: flex;
+      align-items: center;
+      .MidPanelMessage_body__thread_pictures {
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 10%;
+        }
+      }
+
+      .MidPanelMessage_body__thread__info {
+        display: flex;
+        .MidPanelMessage_body__thread__info__counter {
+          margin-left: 0.7rem;
+          color: #1264a3;
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+}

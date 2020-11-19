@@ -12,25 +12,33 @@ export const useChat = () => {
 export const ChatProvider = ({ children }) => {
   const { currentUser } = useAuth();
   const [channelList, setChannelList] = useState([]);
-  const [selectedChatRoom, setSelectedChatroom] = useState("");
+  const [selectedChatRoom, setSelectedChatroom] = useState({});
+  const [channelMessages, setChannelMessages] = useState([]);
+  const [selectedMessage, setSelectedMessage] = useState({});
+  const [threadList, setThreadList] = useState([]);
 
   useEffect(() => {
-    const data = getChatChannel();
+    const data = getChatChannels();
     setChannelList(data);
   }, []);
+  useEffect(() => {
+    if (selectedChatRoom.id) {
+      getMessages();
+    }
+    // eslint-disable-next-line
+  }, [selectedChatRoom]);
 
-  const selectChatRoom = (id) => {
-    setSelectedChatroom(id);
-    console.log("SELECT CHAT ROOM FROM CHAT CONTEXT IS HERE");
-    console.log(selectedChatRoom);
+  useEffect(() => {
+    getReplies();
+  }, [selectedMessage]);
+
+  const selectChatRoom = (doc) => {
+    setSelectedChatroom(doc);
   };
 
   const addChannel = (channelName, channelDescription) => {
     //if no current photoURL, take default.
-    const userAvatar =
-      currentUser.photoURL ||
-      `https://ui-avatars.com/api/?background=random&name=${currentUser.email}`;
-
+    const userAvatar = createOrFetchUserAvatar();
     const tempChannelInfo = {
       description: channelDescription,
       name: channelName,
@@ -47,21 +55,21 @@ export const ChatProvider = ({ children }) => {
       .add(tempChannelInfo)
       .then(function (docRef) {
         channelId = docRef.id;
-        console.log("insie", channelId);
+
         const channelInfo = {
           ...tempChannelInfo,
           id: channelId,
         };
         const newChannelList = [...channelList, channelInfo];
         setChannelList(newChannelList);
-        setSelectedChatroom(channelId);
+        setSelectedChatroom(channelInfo);
       })
       .catch(function (error) {
         console.error("Error adding document: ", error);
       });
   };
 
-  const getChatChannel = () => {
+  const getChatChannels = () => {
     const tempChannelList = [];
     db.collection("rooms")
       .get()
@@ -83,12 +91,124 @@ export const ChatProvider = ({ children }) => {
     return tempChannelList;
   };
 
+  const sendMessage = (message) => {
+    const userAvatar = createOrFetchUserAvatar();
+    const tempMessageInfo = {
+      createdAt: firebase.firestore.Timestamp.now(),
+      message: message,
+      sendUser: {
+        userEmail: currentUser.email,
+        userUid: currentUser.uid,
+        userAvatar: userAvatar,
+      },
+    };
+
+    db.collection("rooms")
+      .doc(selectedChatRoom.id)
+      .collection("messages")
+      .add(tempMessageInfo)
+      .then(() => {
+        console.log("Message has been successfully added");
+        getMessages();
+      })
+      .catch((err) => console.log("===ERROR===", err));
+  };
+
+  const selectMessage = (obj) => {
+    setSelectedMessage(obj);
+  };
+
+  const getMessages = () => {
+    if (Object.keys(selectedChatRoom).length === 0) {
+      return;
+    }
+
+    const messagesArray = [];
+    db.collection("rooms")
+      .doc(selectedChatRoom.id)
+      .collection("messages")
+      .orderBy("createdAt", "asc")
+      .get()
+      .then((querySnapShot) => {
+        querySnapShot.docs.forEach((doc) => {
+          const id = doc.id;
+          messagesArray.push({ ...doc.data(), id });
+        });
+      })
+      .then((res) => setChannelMessages(messagesArray));
+  };
+
+  const createOrFetchUserAvatar = () => {
+    const userAvatar =
+      currentUser.photoURL ||
+      `https://ui-avatars.com/api/?background=random&name=${currentUser.email}`;
+
+    return userAvatar;
+  };
+
+  const addReplyToChat = (message) => {
+    const userAvatar = createOrFetchUserAvatar();
+    const tempMessageInfo = {
+      createdAt: firebase.firestore.Timestamp.now(),
+      message: message,
+      sendUser: {
+        userEmail: currentUser.email,
+        userUid: currentUser.uid,
+        userAvatar: userAvatar,
+      },
+    };
+
+    db.collection("rooms")
+      .doc(selectedChatRoom.id)
+      .collection("messages")
+      .doc(selectedMessage.id)
+      .collection("thread")
+      .add(tempMessageInfo)
+      .then(() => {
+        console.log("Message has been successfully added");
+        getReplies();
+      })
+      .catch((err) => console.log("===ERROR===", err));
+  };
+
+  const getReplies = () => {
+    if (Object.keys(selectedChatRoom).length === 0) {
+      return;
+    }
+    const threadsArray = [];
+
+    db.collection("rooms")
+      .doc(selectedChatRoom.id)
+      .collection("messages")
+      .doc(selectedMessage.id)
+      .collection("thread")
+      .orderBy("createdAt", "asc")
+      .get()
+      .then((querySnapShot) => {
+        querySnapShot.forEach((doc) => {
+          const id = doc.id;
+          threadsArray.push({ ...doc.data(), id });
+        });
+      })
+      .then((promise) => {
+        setThreadList(threadsArray);
+      });
+  };
+
   const value = {
     addChannel,
-    getChatChannel,
+    getChatChannels,
     channelList,
     selectChatRoom,
     selectedChatRoom,
+    sendMessage,
+    getMessages,
+    channelMessages,
+    selectMessage,
+    selectedMessage,
+    addReplyToChat,
+    getReplies,
+    threadList,
   };
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
 };

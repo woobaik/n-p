@@ -5,77 +5,6 @@
 ### 3rd party libraries
 
 1. create-react-app (MIT)
-2. node-sass
-   - the major version was just bumped, and CRA does not match sass-loader ^4.0.0. so, Installed prev version of node-sass. (4.14.1) (MIT)
-3. react-icons
-
-   - Each Icons Library has different license.
-
-   * check [React Icons](https://github.com/react-icons/react-icons)
-
-4. react-responsive-modal (MIT)
-   https://www.npmjs.com/package/react-responsive-modal
-   -this package is not very popular but, looks much better and smaller than popular react-modal package.
-
-### Reusable component
-
-1.  Auth
-    1.  AuthHeader
-        <<<<<<< HEAD
-    2.  # FormContainer - see Things to improve below
-    3.  FormContainer
-        > > > > > > > 44063dd109f980ad40d8289571dc203072c5d227
-              1.AuthInput
-              2.AuthButton <- used in Modal form as well.> need to change naming
-
-### Global Sass Variables
-
-    - in order to change main theme, this can be found under /src/design-tokens/_scss_variables.scss
-
-    1. $slack-color: #4d194e;
-    2. $slack-header-color: #241524;
-
-### Daily Work
-
-<<<<<<< HEAD
-
-- 11/11 - Work assigned 🚀 1. create react app - get some reference from slack.com 2. create firestore app - didn't implement yet 🥱
-  (1hr of work)
-
-- 11/12 - Auth Part
-  1. Create register, login page, focused on making reusable component. for scalable page.
-  2. firebase setup
-  3. learn useContext, since it is a small project. <= never been used it for strong user. I've used redux most of my project
-
-### Things to improve
-
-- Made a single form, it will render correspond input component, by its prop "TYPE"
-  so, we don't have to repeat submit and keyboard event function. However, It made code hard to read and maintain.(Nested if), (cannot use useRef or disable button while loading directly, need to send props to communicate🤢. for scalable app, I should make seperate login, and sign up page.
-
-### mokey patching warning
-
-- // eslint-disable-next-line
-  AuthContext (no-unused-vars) => this is a wrapper function for context, so variables is not used inside of return.
-
-src\context\AuthContext.js
-Line 10:10: 'currentUser' is assigned a value but never used no-unused-vars
-Line 14:9: 'login' is assigned a value but never used no-unused-vars
-Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
-=======
-11/11 - Work assigned 🚀 1. create react app - get some reference from slack.com 2. create firestore app - didn't implement yet 🥱
-(1hr of work)
-
-11/12 - Auth Part 1. Create register, login page, focused on making reusable component. for scalable page.
-
-> > > > > > > 44063dd109f980ad40d8289571dc203072c5d227
-
-# Challenge for N-Project
-
-    Slack Clone with react and firebase.
-
-### 3rd party libraries
-
-1. create-react-app (MIT)
 2. node-sass (4.14.1) (MIT)
 
    - the major version was just bumped, and CRA does not match sass-loader ^4.0.0. so, Installed prev version of node-sass.
@@ -93,13 +22,17 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
    https://reactrouter.com/web/guides/quick-start
 
 5. ### react-modal (MIT)
+
    https://reactcommunity.org/react-modal/
+
+6. firebase (MIT)
+   https://yarnpkg.com/package/firebase
 
 ### Reusable component
 
 1. Auth
    1. AuthHeader
-   2. FormContainer - see  
+   2. FormContainer -  
       1.AuthInput
       2.AuthButton
 
@@ -107,7 +40,8 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
 
     - in order to change main theme, this can be found under /src/design-tokens/_scss_variables.scss
 
-    1. $slack-color: #4d194e;
+1.  \$slack-color: #4d194e;
+2.  \$slack-header-color: #2b092b;
 
 ### Daily Work
 
@@ -136,10 +70,24 @@ Line 22:9: 'signUp' is assigned a value but never used no-unused-vars
   2. implement firebase firestore.
      refactored left panel category => left panel body
 
+  11/16
+
+  1.  used to pass only id for selecting channel, but it requires extra fetching data from server when getting other info, so changed it to fetching all necessary data object in selecting channel function.
+
+  11/17
+
+  1.  Finish mid part of the main app page.
+
+  11/18 Decided to implement thread, and it seems really expensive to have counter :(
+
+  2.  Fount that there were so many bugs in this app, spend most of the time fixing issues.
+
 ### Things to improve
 
 - Made a single form, it will render correspond input component, by its prop "TYPE"
-  so, we don't have to repeat submit and keyboard event function. However, It made code hard to read and maintain.(Nested if), (cannot use useRef or disable button while loading directly, need to send props to communicate🤢. for scalable app, I should make seperate login, and sign up page.
+  so, we don't have to repeat submit and keyboard event function. However, It made code hard to read and maintain.(Nested if) I should have made seperate login, and sign up page for making more readable code.
+
+  - I thought I was able to do handling all features with using just seperated context API, but If I have time, I would like to use useReducer, to combine all context APIs into a single state.
 
 ### mokey patching warning
 
@@ -163,4 +111,23 @@ Compiled with warnings.
 "Chrome will now warn you if your username and password have been compromised in a data breach on some site or app,” the tech giant wrote in a blog post. “It will suggest that you change them everywhere they were used."
 
 2. After hitting submit button on login, register, <the email address is badly formatted>
-   => reset error on hitting.
+   => reset error on hitting button.
+
+3. After creating multiple channels on ChatContext, auto selected value is stacked.
+   => Added Id outside of promise, so adding Id function happened before firebase server create Uid for channel.
+
+4. getting selectedChat had an undefined issue for chat input.
+   took about 1 hours to figure out.
+   => T Y P O !
+
+5. After submitting a chat message, the message shows twice on the main page
+   => changed fetching function.
+
+### things to refactor
+
+1.  Change Mid Pannel Message to Message
+    L the code is reused in right panel too
+
+2.  Google firebase firestore does not have function that counts number of docs in a collection
+    So, I had to qurey into each message, and count the total the number of threads.
+    If this app is not a chat app, I would cache the prev number and increment, but in order to sync data with server every time, I had to fetch message data and threads every time user changes chat room.

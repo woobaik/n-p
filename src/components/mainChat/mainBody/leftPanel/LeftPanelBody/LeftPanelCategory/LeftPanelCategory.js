@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./LeftPanelCategory.scss";
 //input box from auth, took it from there, might need to change name
 import AuthInput from "../../../../../Auth/AuthInput/AuthInput";
 import { Modal } from "react-responsive-modal";
-import { db } from "../../../../../../firebase/firebase";
 
-import { useAuth } from "../../../../../../context/AuthContext";
+// import { useAuth } from "../../../../../../context/AuthContext";
 import { useChat } from "../../../../../../context/ChatContext";
 
 import { AiFillCaretDown, AiFillCaretRight } from "react-icons/ai"; //icons
@@ -17,16 +16,13 @@ const LeftPanelCategory = ({ title }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [channelName, setChannelName] = useState("");
   const [channelDescription, setChannelDescription] = useState("");
-  const { currentUser } = useAuth();
+  // const { currentUser } = useAuth();
   const {
     addChannel,
-    getChatChannel,
     channelList,
     selectChatRoom,
     selectedChatRoom,
   } = useChat();
-
-  const [chatroomList, setChatroomList] = useState([]);
 
   const selectCategoryHandler = () => {
     setExpand(!expand);
@@ -82,7 +78,7 @@ const LeftPanelCategory = ({ title }) => {
             <AuthInput
               name="name"
               inputType="text"
-              placeholder="Name(Required)"
+              placeholder="Name (Required)"
               changeHandler={onChangeHandler}
             />
           </div>
@@ -123,17 +119,19 @@ const LeftPanelCategory = ({ title }) => {
       <div className="LeftPanelCategory__list">
         <ul>
           {expand
-            ? channelList.map(({ name, id }) => {
+            ? channelList.map((channel) => {
                 return (
                   <>
                     <li
-                      className={selectedChatRoom === id ? "active" : ""}
-                      onClick={() => selectChatRoom(id)}
-                      key={id}
+                      className={
+                        selectedChatRoom.id === channel.id ? "active" : ""
+                      }
+                      onClick={() => selectChatRoom(channel)}
+                      key={channel.id}
                     >
                       <HiOutlineHashtag />
                       {"   "}
-                      {name}
+                      {channel.name}
                     </li>
                   </>
                 );

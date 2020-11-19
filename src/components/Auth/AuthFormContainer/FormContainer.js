@@ -33,7 +33,6 @@ const FormContainer = ({ title, description, type }) => {
 
   useEffect(() => {
     if (currentUser) {
-      console.log(currentUser);
       history.push("/");
     }
   }, [currentUser, history]);
@@ -56,12 +55,13 @@ const FormContainer = ({ title, description, type }) => {
     } else if (type === "signup") {
       if (password !== passwordConfirmation) {
         setErrors("passwords do not match.");
+      } else {
+        signUp(email, password);
       }
-      signUp(email, password);
     } else {
       // I'm not sure about its vulnerability of rendering signup or signin page by prop
       // so, I just used else clause, that might not be necessary.
-      console.log("Something wrong with props");
+
       return;
     }
     setLoading(false);

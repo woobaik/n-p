@@ -1,4 +1,66 @@
 .RightPanel {
-  background-color: yellowgreen;
   height: 100%;
+  overflow: scroll;
+  border-left: 1px solid #e5e5e5;
+
+  .RightPanel__title__container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+
+    .RightPanel__title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      padding-bottom: 1rem;
+      font-weight: bolder;
+    }
+
+    .RightPanel__picture {
+      img {
+        width: 100px;
+        border-radius: 5px;
+      }
+    }
+
+    .RightPanel__time {
+      color: gray;
+    }
+
+    .RightPanel__description {
+    }
+  }
+
+  .RightPanel__thread {
+    .RightPanel__original_msg {
+      border-bottom: 1px solid #e5e5e5;
+      background-color: #f8a9a9;
+    }
+
+    .RightPanel__form_container {
+      border-radius: 20px;
+
+      form {
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
+
+      input {
+        position: fixed;
+        bottom: 30px;
+        width: 15%;
+        border: 1px solid gray;
+        padding: 20px;
+        border-radius: 15px;
+      }
+
+      button {
+        display: none;
+      }
+    }
+  }
 }

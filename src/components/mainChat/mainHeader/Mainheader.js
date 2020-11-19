@@ -3,11 +3,13 @@ import "./Mainheader.scss";
 import { useAuth } from "../../../context/AuthContext";
 import { useHistory } from "react-router-dom";
 
-const Mainheader = () => {
+import { FaBars } from "react-icons/fa";
+
+import { BsPower } from "react-icons/bs";
+const Mainheader = ({ clickMenu, isOpen }) => {
   const { currentUser, signOut } = useAuth();
   const history = useHistory();
   const signOutHandler = () => {
-    console.log("hello sign out");
     signOut();
   };
 
@@ -16,10 +18,25 @@ const Mainheader = () => {
       history.push("/login");
     }
   }, [history, currentUser]);
+
+  const handleMenuClick = () => {
+    clickMenu(!isOpen);
+  };
+
   return (
     <div className="Mainheader">
-      <div>{currentUser && currentUser.email}</div>
-      <button onClick={signOutHandler}>LOGOUT</button>
+      <div className="MainHeader__menu" onClick={handleMenuClick}>
+        <FaBars />
+      </div>
+      <div className="Mainheader__userinfo">
+        <div className="Mainheader__username">
+          {currentUser && currentUser.email}
+        </div>
+        <button onClick={signOutHandler} className="Mainheader__button">
+          <BsPower />
+          Sign out
+        </button>
+      </div>
     </div>
   );
 };

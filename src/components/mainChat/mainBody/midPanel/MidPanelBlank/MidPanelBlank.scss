@@ -1,0 +1,19 @@
+.MidPanelBlank {
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: calc(100% - 69px);
+  background-position: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .MidPanelBlank__title {
+    font-size: 2rem;
+    margin-top: 3rem;
+    font-weight: bolder;
+  }
+
+  .MidPanelBlank__body {
+    margin-top: 1rem;
+  }
+}

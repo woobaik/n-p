@@ -1,0 +1,36 @@
+.MidPanelHeader {
+  min-height: 68px;
+  border-bottom: 1px solid #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .MidPanelHeader__description {
+    margin-left: 1rem;
+    max-width: 700px;
+    .title {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      vertical-align: center;
+    }
+
+    .description {
+      color: #929192;
+    }
+  }
+
+  .MidPanelHeader__detail {
+    margin-right: 1rem;
+    svg {
+      color: rgb(97, 96, 97);
+      font-size: 2rem;
+      cursor: pointer;
+
+      &:hover {
+        color: rgb(92, 8, 8);
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.MidPanelBody {
+  position: relative;
+  height: calc(100vh - 130px);
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .MidPanelBody {
+    height: calc(100vh - 350px);
+  }
+}

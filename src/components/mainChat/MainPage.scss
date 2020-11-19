@@ -3,20 +3,39 @@
 
   .MainPage-body {
     display: flex;
-
     height: 100vh;
     height: calc(100vh - 43px);
     .left-container {
       min-width: 290px;
+
+      &.closed {
+        display: none;
+      }
     }
 
     .mid-container {
-      flex: 0.7;
+      flex: 1;
     }
 
     .right-container {
       min-width: 424px;
       flex: 0.3;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .right-container {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .MainPage-body {
+    flex-direction: column;
+    .left-container {
+      &.opened {
+      }
     }
   }
 }
