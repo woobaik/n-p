@@ -141,7 +141,7 @@ some other useEffect does that too, because I used Context API
    => changed fetching function.
 
    6. IT's NOT LIVE.
-      => changed whole chat Context code. WOW....
+      => changed whole chat Context code.... 🤕
 
 ### things to refactor
 
@@ -151,3 +151,5 @@ some other useEffect does that too, because I used Context API
 2.  Google firebase firestore does not have function that counts number of docs in a collection
     So, I had to qurey into each message, and count the total the number of threads.
     If this app is not a chat app, I would cache the prev number and increment, but in order to sync data with server every time, I had to fetch message data and threads every time user changes chat room.
+
+    As a frontend developer candidate, I would like to ask the backend engineer to make a such queries, or its too expensive. O(n^3)
